@@ -35,6 +35,9 @@ services:
     Arxus\NewrelicMessengerBundle\Middleware\NewRelicMiddleware:
         class: Arxus\NewrelicMessengerBundle\Middleware\NewRelicMiddleware
 
+    Arxus\NewrelicMessengerBundle\Middleware\NewRelicTraceMiddleware:
+        class: Arxus\NewrelicMessengerBundle\Middleware\NewRelicTraceMiddleware
+
     Arxus\NewrelicMessengerBundle\Listener\ConsoleCommandListener:
         class: Arxus\NewrelicMessengerBundle\Listener\ConsoleCommandListener
         tags:
