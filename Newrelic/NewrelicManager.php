@@ -43,4 +43,14 @@ class NewrelicManager
     {
         newrelic_notice_error($exception);
     }
+
+    public function insertTrace(): array
+    {
+        return newrelic_insert_distributed_trace_headers([]);
+    }
+
+    public function acceptTrace(array $headers): void
+    {
+        newrelic_accept_distributed_trace_headers($headers);
+    }
 }
