@@ -37,7 +37,7 @@ class NewRelicMiddleware implements MiddlewareInterface
         $this->newrelicManager->startTransaction();
         // Accept the stamp
         if ($stamp = $envelope->last(TraceStamp::class)) {
-            printf('addinf trace data %s', $stamp->getTraceData());
+            printf('addinf trace data %s', json_encode($stamp->getTraceData()));
             $this->newrelicManager->acceptTrace($stamp->getTraceData());
         }else{
             print "No trace stamp found\n";
