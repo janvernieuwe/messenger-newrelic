@@ -27,13 +27,6 @@ class NewRelicTraceMiddleware implements MiddlewareInterface
             return $stack->next()->handle($envelope, $stack);
         }
 
-        // Accept the stamp
-        if ($stamp = $envelope->last(TraceStamp::class)) {
-            $this->newrelicManager->acceptTrace($stamp->getTraceData());
-
-            return $stack->next()->handle($envelope, $stack);
-        }
-
         // Add the stamp
         $envelope = $envelope->with(new TraceStamp($this->newrelicManager->insertTrace()));
 

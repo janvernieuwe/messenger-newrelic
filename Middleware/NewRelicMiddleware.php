@@ -4,6 +4,7 @@ namespace Arxus\NewrelicMessengerBundle\Middleware;
 
 use Arxus\NewrelicMessengerBundle\Newrelic\NewrelicManager;
 use Arxus\NewrelicMessengerBundle\Newrelic\NewrelicTransactionNameManager;
+use Arxus\NewrelicMessengerBundle\Stamp\TraceStamp;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
@@ -34,6 +35,10 @@ class NewRelicMiddleware implements MiddlewareInterface
         }
 
         $this->newrelicManager->startTransaction();
+        // Accept the stamp
+        if ($stamp = $envelope->last(TraceStamp::class)) {
+            $this->newrelicManager->acceptTrace($stamp->getTraceData());
+        }
         $this->newrelicManager->nameTransaction($this->newrelicTransactionNameManager->getTransactionName($envelope));
         try {
             return $stack->next()->handle($envelope, $stack);
