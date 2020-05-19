@@ -46,7 +46,8 @@ class NewrelicManager
 
     public function insertTrace(): array
     {
-        return newrelic_insert_distributed_trace_headers([]);
+        $headers = [];
+        return newrelic_insert_distributed_trace_headers($headers);
     }
 
     public function acceptTrace(array $headers): void
